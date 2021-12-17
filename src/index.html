@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trivia</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./scss/main.scss" />
+    <script defer src="./js/main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="heading-1">Trivia</h1>
+      </header>
+
+      <main class="box">
+        <form action="#" class="settings hidden">
+          <div class="settings__row">
+            <p>Category:</p>
+            <select name="category" id="category" class="settings__category">
+              <option value="">All</option>
+            </select>
+          </div>
+
+          <div class="settings__row">
+            <p>Difficulty:</p>
+            <div class="settings__difficulty">
+              <input
+                class="difficulty"
+                type="radio"
+                id="easy"
+                name="difficulty"
+                value="easy"
+              />
+              <label for="easy">Easy</label>
+
+              <input
+                class="difficulty"
+                type="radio"
+                id="medium"
+                name="difficulty"
+                value="medium"
+                checked
+              />
+              <label for="medium">Medium</label>
+
+              <input
+                class="difficulty"
+                type="radio"
+                id="hard"
+                name="difficulty"
+                value="hard"
+              />
+              <label for="hard">Hard</label>
+            </div>
+          </div>
+
+          <div class="settings__row">
+            <p>Number of questions:</p>
+            <div class="settings__num-questions">
+              <input
+                class="num-questions"
+                type="radio"
+                id="10"
+                name="num-questions"
+                value="10"
+              />
+              <label for="10">10</label>
+              <input
+                class="num-questions"
+                type="radio"
+                id="15"
+                name="num-questions"
+                value="15"
+                checked
+              />
+              <label for="15">15</label>
+              <input
+                class="num-questions"
+                type="radio"
+                id="20"
+                name="num-questions"
+                value="20"
+              />
+              <label for="20">20</label>
+            </div>
+          </div>
+          <button class="settings__start btn">Start</button>
+        </form>
+        <div class="game">
+          <div class="game__question">
+            Who is the director of the 1991 film &quot;Silence of the
+            Lambs&quot;?
+          </div>
+
+          <div class="game__answers">
+            <div class="game__answer">Michael Bay</div>
+            <div class="game__answer">jarda vomaka</div>
+            <div class="game__answer">tom</div>
+            <div class="game__answer">karolina nova</div>
+          </div>
+          <button class="game__next btn">Next</button>
+          <span class="game__page-num">1/15</span>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

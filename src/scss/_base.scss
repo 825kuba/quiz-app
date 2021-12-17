@@ -1,0 +1,27 @@
+$color-primary-1: #614385;
+$color-primary-2: #516395;
+// $color-secondary-1: #ee9ca7;
+// $color-secondary-2: #ffdde1;
+$color-secondary-1: #a2afbd;
+$color-secondary-2: #8395a7;
+
+$color-font-primary: black;
+
+$font-primary: 'Open Sans', sans-serif;
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $font-primary;
+}

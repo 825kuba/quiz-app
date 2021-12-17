@@ -1,0 +1,29 @@
+.settings {
+  display: grid;
+  justify-content: stretch;
+  justify-items: stretch;
+  row-gap: 1rem;
+
+  &__row {
+    & label {
+      margin-right: 1rem;
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $color-font-primary;
+      padding-bottom: 1rem;
+    }
+  }
+
+  & * {
+    font-size: 2rem;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &__start {
+    justify-self: center;
+  }
+}

@@ -1,0 +1,50 @@
+.game {
+  display: grid;
+  row-gap: 2rem;
+  position: relative;
+
+  &__question {
+    font-size: 2.2rem;
+  }
+
+  &__answers {
+    display: grid;
+    // justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  &__answer {
+    background-color: $color-secondary-2;
+    border: 2px solid $color-font-primary;
+    box-shadow: 0 0 0.4rem $color-font-primary;
+    border-radius: 2px;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: $color-secondary-1;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &__next {
+    justify-self: center;
+  }
+
+  &__page-num {
+    // position: absolute;
+    // right: 50%;
+    // bottom: 0rem;
+    // transform: translate(50%, 50%);
+    font-size: 1.8rem;
+  }
+}
