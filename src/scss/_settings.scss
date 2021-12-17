@@ -1,8 +1,11 @@
 .settings {
   display: grid;
-  justify-content: stretch;
-  justify-items: stretch;
   row-gap: 1rem;
+
+  &__category {
+    width: 80%;
+    font-size: 1.8rem;
+  }
 
   &__row {
     & label {
@@ -10,13 +13,9 @@
     }
 
     &:not(:last-of-type) {
-      border-bottom: 1px solid $color-font-primary;
+      border-bottom: 1px dotted $color-font-primary;
       padding-bottom: 1rem;
     }
-  }
-
-  & * {
-    font-size: 2rem;
   }
 
   &.hidden {

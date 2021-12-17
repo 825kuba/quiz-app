@@ -1,5 +1,7 @@
 .game {
   display: grid;
+  justify-content: center;
+  justify-items: center;
   row-gap: 2rem;
   position: relative;
 
@@ -9,12 +11,15 @@
 
   &__answers {
     display: grid;
-    // justify-content: center;
+    justify-content: center;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
 
   &__answer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: $color-secondary-2;
     border: 2px solid $color-font-primary;
     box-shadow: 0 0 0.4rem $color-font-primary;

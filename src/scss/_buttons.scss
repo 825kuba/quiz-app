@@ -1,0 +1,38 @@
+.btn {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100rem;
+  border: none;
+  cursor: pointer;
+  font-size: 2.5rem;
+  margin-top: 2rem;
+  background-color: $color-primary-1;
+  color: $color-secondary-1;
+  width: 20rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $color-primary-2;
+    color: $color-font-primary;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+// SPINNER ICON
+.fa-cog {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
