@@ -71,11 +71,11 @@
               <input
                 class="num-questions"
                 type="radio"
-                id="10"
+                id="3"
                 name="num-questions"
-                value="10"
+                value="3"
               />
-              <label for="10">10</label>
+              <label for="3">3</label>
               <input
                 class="num-questions"
                 type="radio"
@@ -95,12 +95,12 @@
               <label for="20">20</label>
             </div>
           </div>
-          <button class="settings__start btn">Start</button>
+          <button class="settings__start btn" disabled>Start</button>
         </form>
         <div class="game hidden">
           <div class="game__question">
-            <!-- Who is the director of the 1991 film &quot;Silence of the
-            Lambs&quot;? -->
+            <!-- Who is the director of the 1991
+            film &quot;Silence of the Lambs&quot;? -->
           </div>
 
           <div class="game__answers">
@@ -109,8 +109,18 @@
             <div class="game__answer">tom</div>
             <div class="game__answer">karolina nova</div> -->
           </div>
-          <button class="game__next btn">Next</button>
-          <span class="game__page-num">1/15</span>
+          <button class="game__next btn" disabled>Next</button>
+          <p class="game__page">
+            <!-- 1/15 -->
+          </p>
+        </div>
+        <div class="score hidden">
+          <p class="score__message"></p>
+          <buttton class="btn btn--again">Try again</buttton>
+        </div>
+        <div class="error hidden">
+          <p class="error__message"></p>
+          <buttton class="btn btn--again">Try again</buttton>
         </div>
       </main>
     </div>

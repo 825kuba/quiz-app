@@ -13,9 +13,10 @@
   }
 
   .box {
+    position: relative;
     margin: 0 auto;
     width: 90%;
-    // max-width: 600px;
+    max-width: 650px;
     background-image: linear-gradient(
       to bottom,
       $color-secondary-1,
@@ -25,5 +26,17 @@
     box-shadow: 0 0 3rem $color-font-primary;
     padding: 2rem 4rem;
     text-align: center;
+  }
+
+  &.correct {
+    background-image: linear-gradient(
+      to bottom,
+      $color-correct-1,
+      $color-correct-2
+    );
+  }
+
+  &.wrong {
+    background-image: linear-gradient(to top, $color-wrong-1, $color-wrong-2);
   }
 }

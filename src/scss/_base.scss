@@ -2,6 +2,10 @@ $color-primary-1: #614385;
 $color-primary-2: #516395;
 $color-secondary-1: #a2afbd;
 $color-secondary-2: #8395a7;
+$color-wrong-1: #ed213a;
+$color-wrong-2: #93291e;
+$color-correct-1: #1d976c;
+$color-correct-2: #93f9b9;
 
 $color-font-primary: black;
 
@@ -22,4 +26,5 @@ html {
 
 body {
   font-family: $font-primary;
+  color: $color-font-primary;
 }
