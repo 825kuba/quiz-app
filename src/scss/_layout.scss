@@ -78,7 +78,6 @@
 .game {
   display: grid;
   row-gap: 2rem;
-  position: relative;
 
   &__question {
     font-size: 2.2rem;
@@ -144,8 +143,8 @@
   }
 }
 
-// ERROR MESSAGE LAYOUT
-.error {
+//MODAL LAYOUT
+%modal {
   position: absolute;
   z-index: 100;
   left: 50%;
@@ -163,6 +162,34 @@
     $color-secondary-2
   );
   font-size: 2.5rem;
+}
+
+// ERROR MESSAGE LAYOUT
+.error {
+  @extend %modal;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+//QUIT GAME FEATURE LAYOUT
+.quit-game {
+  &__btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    transform: translate(50%, -50%);
+    font-size: 4rem;
+    cursor: pointer;
+  }
+
+  &__modal {
+    @extend %modal;
+    &.hidden {
+      display: none;
+    }
+  }
 
   &.hidden {
     display: none;

@@ -71,11 +71,11 @@
               <input
                 class="num-questions"
                 type="radio"
-                id="10"
+                id="2"
                 name="num-questions"
-                value="10"
+                value="2"
               />
-              <label for="10">10</label>
+              <label for="2">2</label>
               <input
                 class="num-questions"
                 type="radio"
@@ -125,6 +125,20 @@
         <div class="error hidden">
           <p class="error__message"></p>
           <buttton class="btn btn--again">Try again</buttton>
+        </div>
+        <div class="quit-game hidden">
+          <buttton class="quit-game__btn">&times;</buttton>
+          <div class="quit-game__modal hidden">
+            <p class="quit-game__message">Quit game?</p>
+            <div class="quit-game__btns">
+              <button class="quit-game__option quit-game__option--yes btn">
+                Yes
+              </button>
+              <button class="quit-game__option quit-game__option--no btn">
+                No
+              </button>
+            </div>
+          </div>
         </div>
       </main>
     </div>

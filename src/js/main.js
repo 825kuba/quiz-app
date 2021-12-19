@@ -22,6 +22,10 @@ const errorMsgEle = document.querySelector('.error__message');
 
 const btnAgain = document.querySelectorAll('.btn--again');
 
+const quitGameEle = document.querySelector('.quit-game');
+const btnQuitGame = document.querySelector('.quit-game__btn');
+const quitGameMsgEle = document.querySelector('.quit-game__modal');
+
 class App {
   #categories = {};
   #settings = {};
@@ -39,6 +43,13 @@ class App {
     Array.from(btnAgain).forEach(btn => {
       btn.addEventListener('click', this.#resetGame.bind(this));
     });
+    btnQuitGame.addEventListener(
+      'click',
+      function () {
+        quitGameMsgEle.classList.remove('hidden');
+      }.bind(this)
+    );
+    quitGameMsgEle.addEventListener('click', this.#quitGame.bind(this));
   }
 
   async #loadCategories() {
@@ -132,6 +143,7 @@ class App {
     //HIDE SETTINGS AND DISPLAY GAME
     settingsEle.classList.add('hidden');
     gameEle.classList.remove('hidden');
+    quitGameEle.classList.remove('hidden');
   }
 
   #renderQuestions() {
@@ -255,9 +267,10 @@ class App {
     <p class="score__perc">${percentage}%</p>
       <p class="score__rank">${rank(percentage)}</p>
     `;
-    //HIDE GAME AND SHOW SOCRE
+    //HIDE GAME AND SHOW SCORE
     gameEle.classList.add('hidden');
     scoreEle.classList.remove('hidden');
+    quitGameEle.classList.add('hidden');
   }
 
   #renderSpinner(btn) {
@@ -287,6 +300,19 @@ class App {
     settingsEle.classList.remove('hidden');
     errorEle.classList.add('hidden');
     scoreEle.classList.add('hidden');
+    quitGameEle.classList.add('hidden');
+    quitGameMsgEle.classList.add('hidden');
+    container.classList.remove('correct', 'wrong');
+  }
+
+  #quitGame(e) {
+    const target = e.target;
+    if (!target) return;
+    //IF TARGET IF YES BTN, RESET GAME
+    if (target.classList.contains('quit-game__option--yes')) this.#resetGame();
+    //IF TARGET IS NO BTN, HIDE QUIT MESSAGE
+    if (target.classList.contains('quit-game__option--no'))
+      quitGameMsgEle.classList.add('hidden');
   }
 }
 
