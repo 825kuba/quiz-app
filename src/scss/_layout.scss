@@ -1,3 +1,4 @@
+// MAIN LAYOUT
 .container {
   background-image: linear-gradient(
     to bottom,
@@ -38,5 +39,150 @@
 
   &.wrong {
     background-image: linear-gradient(to top, $color-wrong-1, $color-wrong-2);
+  }
+}
+
+//SETTINGS LAYOUT
+.settings {
+  display: grid;
+  row-gap: 1rem;
+  justify-content: center;
+
+  &__category {
+    width: 80%;
+    font-size: 1.8rem;
+    color: $color-font-primary;
+  }
+
+  &__row {
+    & label {
+      margin-right: 1rem;
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: 1px dotted $color-font-primary;
+      padding-bottom: 1rem;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &__start {
+    justify-self: center;
+  }
+}
+
+// GAME LAYOUT
+.game {
+  display: grid;
+  row-gap: 2rem;
+  position: relative;
+
+  &__question {
+    font-size: 2.2rem;
+    display: inline-block;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  &__answers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+  }
+
+  &__answer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-secondary-2;
+    border: 2px solid $color-font-primary;
+    box-shadow: 0 0 0.4rem $color-font-primary;
+    font-size: 2rem;
+    color: $color-font-primary;
+    border-radius: 2px;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow-wrap: break-word;
+    hyphens: auto;
+
+    &:disabled {
+      color: $color-font-primary;
+      cursor: initial;
+    }
+
+    &:hover {
+      background-color: $color-secondary-1;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &.correct {
+      background-color: $color-correct-1;
+    }
+
+    &.wrong {
+      background-color: $color-wrong-2;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &__next {
+    justify-self: center;
+  }
+
+  &__page-num {
+    font-size: 1.8rem;
+  }
+}
+
+// ERROR MESSAGE LAYOUT
+.error {
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(
+    to bottom,
+    $color-secondary-1,
+    $color-secondary-2
+  );
+  font-size: 2.5rem;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+// SCORE LAYOUT
+.score {
+  &__message {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__perc {
+    font-size: 4rem;
+    font-weight: 600;
+  }
+  &.hidden {
+    display: none;
   }
 }

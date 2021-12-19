@@ -49,7 +49,6 @@ class App {
       const data = await response.json();
       // SAVE THE CATEGORIES AND DISPLAY THEM IN FORM
       this.#categories = data.trivia_categories;
-      console.log(this.#categories);
       this.#renderCategories();
       btnStart.disabled = false;
     } catch (err) {
@@ -60,7 +59,7 @@ class App {
   #renderCategories() {
     // MARKUP FOR CATEGORY SELECT FORM
     settingsCategories.innerHTML = `
-      <option selected value="">Any Category</option>
+      <option selected value="">All Categories</option>
     `;
     this.#categories.forEach(cat =>
       settingsCategories.insertAdjacentHTML(
@@ -96,7 +95,6 @@ class App {
       this.#renderSpinner(btnStart);
       //SAVE SETTINGS
       this.#getSettings();
-      console.log(this.#settings);
       //GET QUESTIONS FROM API
       await this.#loadQuestions();
       //RENDER THE GAME
@@ -122,7 +120,6 @@ class App {
         throw new Error(`No questions for this topic :(`);
       // SAVE QUESTIONS
       this.#questions = data.results;
-      console.log(this.#questions);
     } catch (err) {
       this.#renderError(err);
     }
@@ -145,7 +142,7 @@ class App {
 
   #renderAsnwers() {
     if (!this.#questions.length) return;
-    //PUT ALL THE CURRENT ANSWERS TOGETHER
+    //PUT ALL THE CURRENT ANSWERS IN ONE ARRAY
     const answers = [
       this.#questions[this.#index].correct_answer,
       ...this.#questions[this.#index].incorrect_answers,
@@ -215,10 +212,12 @@ class App {
   }
 
   #disableAnswers(boolean) {
+    //PREVENT CLICKING ON MORE ANSWERS AFTER USER CLICKS ONE
     Array.from(answersEle.children).forEach(ele => (ele.disabled = boolean));
   }
 
   #showCorrect() {
+    //MARK THE CORRECT ANSWER
     Array.from(answersEle.children).forEach(ele => {
       if (ele.innerHTML === this.#questions[this.#index].correct_answer)
         ele.classList.add('correct');
@@ -226,9 +225,12 @@ class App {
   }
 
   #nextQuestion() {
+    //RESET COLOR STYLES
     container.classList.remove('correct');
     container.classList.remove('wrong');
+    //IF LAST QUESTIONS IS CURRENTLY DISPLAYED, SHOW SCORE
     if (this.#index === this.#questions.length - 1) this.#renderScore();
+    // ELSE INCREASE INDEX AND RENDER NEW QUESTION
     else {
       this.#index++;
       this.#renderGame();
@@ -237,10 +239,23 @@ class App {
   }
 
   #renderScore() {
-    scoreMsgEle.innerHTML = `Correct answers: ${this.#score} of ${
-      this.#questions.length
-    }`;
-    settingsEle.classList.add('hidden');
+    //CREATE DIFFERENT STRINGS DEPENDING ON SCORE
+    const rank = perc => {
+      if (perc <= 20) return `You don't know anything!`;
+      if (perc > 20 && perc <= 40) return `Barely made it...`;
+      if (perc > 40 && perc <= 60) return `Pretty average...`;
+      if (perc > 60 && perc <= 80) return `You did great!`;
+      if (perc > 80 && perc <= 100) return `You're a walking encyclopedia!`;
+    };
+    //COUNT USER'S SCORE
+    const percentage = Math.round((this.#score / this.#questions.length) * 100);
+    //MARKUP FOR SCORE MESSAGE
+    scoreMsgEle.innerHTML = `
+    <p class="score__rate">${this.#score} out of ${this.#questions.length}</p>
+    <p class="score__perc">${percentage}%</p>
+      <p class="score__rank">${rank(percentage)}</p>
+    `;
+    //HIDE GAME AND SHOW SOCRE
     gameEle.classList.add('hidden');
     scoreEle.classList.remove('hidden');
   }
@@ -255,16 +270,19 @@ class App {
   }
 
   #resetGame() {
-    console.log('reset');
+    //RESET AND EMPTY GAME DATA
     this.#score = 0;
     this.#index = 0;
     this.#settings = {};
     this.#questions = [];
+    //EMPTY GAME ELEMENTS
     questionEle.innerHTML = '';
     answersEle.innerHTML = '';
     pageIndex.innerHTML = '';
     btnStart.innerHTML = 'Start';
+    //RESET FORM
     settingsEle.reset();
+    //SHOW SETTINGS AND HIDE EVERYTHING ELSE
     gameEle.classList.add('hidden');
     settingsEle.classList.remove('hidden');
     errorEle.classList.add('hidden');

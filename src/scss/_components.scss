@@ -43,38 +43,3 @@
     transform: rotate(360deg);
   }
 }
-
-// ERROR MESSAGE BOX
-.error {
-  position: absolute;
-  z-index: 100;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: linear-gradient(
-    to bottom,
-    $color-secondary-1,
-    $color-secondary-2
-  );
-  font-size: 2.5rem;
-
-  &.hidden {
-    display: none;
-  }
-}
-
-// SCORE BOX
-.score {
-  &__message {
-    margin-bottom: 2rem;
-  }
-  &.hidden {
-    display: none;
-  }
-}
