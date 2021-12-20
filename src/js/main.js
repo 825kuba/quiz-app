@@ -34,6 +34,7 @@ class App {
   #score = 0;
 
   constructor() {
+    // GET CATEGORIES FROM API
     this.#loadCategories();
 
     // EVENT LISTENERS
@@ -183,18 +184,27 @@ class App {
   }
 
   #renderPageIndex() {
-    pageIndex.innerHTML = `
+    pageIndex.textContent = `
       ${this.#index + 1}/${this.#questions.length}
     `;
+  }
+
+  #decodeHTML(str) {
+    // API RETURN DATA IN ENCODED FORMAT (HTML CODES), SO WE NEED TO DECODE IT TO BE ABLE TO COMPARE USER ANSWER WITH THE CORRECT ONE
+    const temp = document.createElement('p');
+    temp.innerHTML = str;
+    return temp.innerText;
   }
 
   #checkAnswer(e) {
     const target = e.target;
     if (!target.classList.contains('game__answer')) return;
     //GET THE USERS ANSWER
-    const answer = target.innerHTML;
+    const answer = target.innerText;
     //CHECK IF IT IS CORRECT
-    if (answer === this.#questions[this.#index].correct_answer)
+    if (
+      answer === this.#decodeHTML(this.#questions[this.#index].correct_answer)
+    )
       //IF YES, DISPLAY SUCCES
       this.#correctAnswer(target);
     //IF NOT, DISPLAY MISTAKE
@@ -231,7 +241,10 @@ class App {
   #showCorrect() {
     //MARK THE CORRECT ANSWER
     Array.from(answersEle.children).forEach(ele => {
-      if (ele.innerHTML === this.#questions[this.#index].correct_answer)
+      if (
+        ele.innerText ===
+        this.#decodeHTML(this.#questions[this.#index].correct_answer)
+      )
         ele.classList.add('correct');
     });
   }
@@ -278,7 +291,7 @@ class App {
   }
 
   #renderError(err) {
-    errorMsgEle.innerHTML = `${err}`;
+    errorMsgEle.textContent = `${err}`;
     errorEle.classList.remove('hidden');
   }
 
@@ -303,6 +316,7 @@ class App {
     quitGameEle.classList.add('hidden');
     quitGameMsgEle.classList.add('hidden');
     container.classList.remove('correct', 'wrong');
+    btnNext.disabled = true;
   }
 
   #quitGame(e) {

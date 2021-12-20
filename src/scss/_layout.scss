@@ -81,8 +81,7 @@
 
   &__question {
     font-size: 2.2rem;
-    display: inline-block;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     hyphens: auto;
   }
 
