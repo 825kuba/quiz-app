@@ -35,14 +35,14 @@ class App {
 
   constructor() {
     // GET CATEGORIES FROM API
-    this.#loadCategories();
+    this._loadCategories();
 
     // EVENT LISTENERS
-    btnStart.addEventListener('click', this.#startGame.bind(this));
-    answersEle.addEventListener('click', this.#checkAnswer.bind(this));
-    btnNext.addEventListener('click', this.#nextQuestion.bind(this));
+    btnStart.addEventListener('click', this._startGame.bind(this));
+    answersEle.addEventListener('click', this._checkAnswer.bind(this));
+    btnNext.addEventListener('click', this._nextQuestion.bind(this));
     Array.from(btnAgain).forEach(btn => {
-      btn.addEventListener('click', this.#resetGame.bind(this));
+      btn.addEventListener('click', this._resetGame.bind(this));
     });
     btnQuitGame.addEventListener(
       'click',
@@ -50,10 +50,10 @@ class App {
         quitGameMsgEle.classList.remove('hidden');
       }.bind(this)
     );
-    quitGameMsgEle.addEventListener('click', this.#quitGame.bind(this));
+    quitGameMsgEle.addEventListener('click', this._quitGame.bind(this));
   }
 
-  async #loadCategories() {
+  async _loadCategories() {
     // GET API DATA FOR CATEGORIES
     try {
       const response = await fetch(`https://opentdb.com/api_category.php`);
@@ -61,14 +61,16 @@ class App {
       const data = await response.json();
       // SAVE THE CATEGORIES AND DISPLAY THEM IN FORM
       this.#categories = data.trivia_categories;
-      this.#renderCategories();
+      this._renderCategories();
+      // DISPLAY START BUTTON AND ENABLE IT
+      btnStart.textContent = 'Start';
       btnStart.disabled = false;
     } catch (err) {
-      this.#renderError(err);
+      this._renderError(err);
     }
   }
 
-  #renderCategories() {
+  _renderCategories() {
     // MARKUP FOR CATEGORY SELECT FORM
     settingsCategories.innerHTML = `
       <option selected value="">All Categories</option>
@@ -83,7 +85,7 @@ class App {
     );
   }
 
-  #getSettings() {
+  _getSettings() {
     // GET CATEGORY SETTINGS
     this.#settings.category = settingsCategories.value;
     // GET DIFFICULTY SETTINGS
@@ -98,25 +100,23 @@ class App {
     }
   }
 
-  async #startGame(e) {
+  async _startGame(e) {
     try {
       e.preventDefault();
-      // IF NO CATEGORIES LOADED YET, RETURN
-      if (!this.#categories) return;
       //RENDER SPINNER
-      this.#renderSpinner(btnStart);
+      this._renderSpinner(btnStart);
       //SAVE SETTINGS
-      this.#getSettings();
+      this._getSettings();
       //GET QUESTIONS FROM API
-      await this.#loadQuestions();
+      await this._loadQuestions();
       //RENDER THE GAME
-      this.#renderGame();
+      this._renderGame();
     } catch (err) {
-      this.#renderError(err);
+      this._renderError(err);
     }
   }
 
-  async #loadQuestions() {
+  async _loadQuestions() {
     try {
       const response = await fetch(
         `https://opentdb.com/api.php?amount=${
@@ -133,27 +133,27 @@ class App {
       // SAVE QUESTIONS
       this.#questions = data.results;
     } catch (err) {
-      this.#renderError(err);
+      this._renderError(err);
     }
   }
 
-  #renderGame() {
-    this.#renderQuestions();
-    this.#renderAsnwers();
-    this.#renderPageIndex();
+  _renderGame() {
+    this._renderQuestions();
+    this._renderAsnwers();
+    this._renderPageIndex();
     //HIDE SETTINGS AND DISPLAY GAME
     settingsEle.classList.add('hidden');
     gameEle.classList.remove('hidden');
     quitGameEle.classList.remove('hidden');
   }
 
-  #renderQuestions() {
+  _renderQuestions() {
     if (!this.#questions.length) return;
     //DISPLAY THE CURRENT QUESTION
     questionEle.innerHTML = this.#questions[this.#index].question;
   }
 
-  #renderAsnwers() {
+  _renderAsnwers() {
     if (!this.#questions.length) return;
     //PUT ALL THE CURRENT ANSWERS IN ONE ARRAY
     const answers = [
@@ -183,88 +183,88 @@ class App {
     }
   }
 
-  #renderPageIndex() {
+  _renderPageIndex() {
     pageIndex.textContent = `
       ${this.#index + 1}/${this.#questions.length}
     `;
   }
 
-  #decodeHTML(str) {
-    // API RETURN DATA IN ENCODED FORMAT (HTML CODES), SO WE NEED TO DECODE IT TO BE ABLE TO COMPARE USER ANSWER WITH THE CORRECT ONE
+  _decodeHTML(str) {
+    // API RETURNS DATA IN ENCODED FORMAT (HTML CODES), SO WE NEED TO DECODE IT TO BE ABLE TO COMPARE USER ANSWER WITH THE CORRECT ONE
     const temp = document.createElement('p');
     temp.innerHTML = str;
     return temp.innerText;
   }
 
-  #checkAnswer(e) {
+  _checkAnswer(e) {
     const target = e.target;
     if (!target.classList.contains('game__answer')) return;
     //GET THE USERS ANSWER
     const answer = target.innerText;
     //CHECK IF IT IS CORRECT
     if (
-      answer === this.#decodeHTML(this.#questions[this.#index].correct_answer)
+      answer === this._decodeHTML(this.#questions[this.#index].correct_answer)
     )
       //IF YES, DISPLAY SUCCES
-      this.#correctAnswer(target);
+      this._correctAnswer(target);
     //IF NOT, DISPLAY MISTAKE
-    else this.#wrongAnswer(target);
+    else this._wrongAnswer(target);
     //SHOW CORRECT ANSWER
-    this.#showCorrect();
+    this._showCorrect();
     //ENABLE NEXT BUTTON
     btnNext.disabled = false;
   }
 
-  #correctAnswer(element) {
+  _correctAnswer(element) {
     //INCREASE SCORE FOR CORRECT ANSWER
     this.#score++;
     //DISPLAY DESIRED STYLES
     element.classList.add('correct');
     container.classList.add('correct');
     //DISABLE ANSWERS
-    this.#disableAnswers(true);
+    this._disableAnswers(true);
   }
 
-  #wrongAnswer(element) {
+  _wrongAnswer(element) {
     //DISPLAY DESIRED STYLES
     element.classList.add('wrong');
     container.classList.add('wrong');
     //DISABLE ANSWERS
-    this.#disableAnswers(true);
+    this._disableAnswers(true);
   }
 
-  #disableAnswers(boolean) {
+  _disableAnswers(boolean) {
     //PREVENT CLICKING ON MORE ANSWERS AFTER USER CLICKS ONE
     Array.from(answersEle.children).forEach(ele => (ele.disabled = boolean));
   }
 
-  #showCorrect() {
+  _showCorrect() {
     //MARK THE CORRECT ANSWER
     Array.from(answersEle.children).forEach(ele => {
       if (
         ele.innerText ===
-        this.#decodeHTML(this.#questions[this.#index].correct_answer)
+        this._decodeHTML(this.#questions[this.#index].correct_answer)
       )
         ele.classList.add('correct');
     });
   }
 
-  #nextQuestion() {
+  _nextQuestion() {
     //RESET COLOR STYLES
     container.classList.remove('correct');
     container.classList.remove('wrong');
     //IF LAST QUESTIONS IS CURRENTLY DISPLAYED, SHOW SCORE
-    if (this.#index === this.#questions.length - 1) this.#renderScore();
+    if (this.#index === this.#questions.length - 1) this._renderScore();
     // ELSE INCREASE INDEX AND RENDER NEW QUESTION
     else {
       this.#index++;
-      this.#renderGame();
+      this._renderGame();
       btnNext.disabled = true;
     }
   }
 
-  #renderScore() {
-    //CREATE DIFFERENT STRINGS DEPENDING ON SCORE
+  _renderScore() {
+    //CREATE DIFFERENT MESSAGES FOR DIFFERENT SCORE
     const rank = perc => {
       if (perc <= 20) return `You don't know anything!`;
       if (perc > 20 && perc <= 40) return `Barely made it...`;
@@ -286,16 +286,16 @@ class App {
     quitGameEle.classList.add('hidden');
   }
 
-  #renderSpinner(btn) {
-    btn.innerHTML = `<i class="fas fa-cog"></i>`;
+  _renderSpinner(btn) {
+    btn.innerHTML = `<i class="fas fa-spinner"></i>`;
   }
 
-  #renderError(err) {
+  _renderError(err) {
     errorMsgEle.textContent = `${err}`;
     errorEle.classList.remove('hidden');
   }
 
-  #resetGame() {
+  _resetGame() {
     //RESET AND EMPTY GAME DATA
     this.#score = 0;
     this.#index = 0;
@@ -309,8 +309,8 @@ class App {
     //RESET FORM
     settingsEle.reset();
     //SHOW SETTINGS AND HIDE EVERYTHING ELSE
-    gameEle.classList.add('hidden');
     settingsEle.classList.remove('hidden');
+    gameEle.classList.add('hidden');
     errorEle.classList.add('hidden');
     scoreEle.classList.add('hidden');
     quitGameEle.classList.add('hidden');
@@ -319,11 +319,11 @@ class App {
     btnNext.disabled = true;
   }
 
-  #quitGame(e) {
+  _quitGame(e) {
     const target = e.target;
     if (!target) return;
     //IF TARGET IF YES BTN, RESET GAME
-    if (target.classList.contains('quit-game__option--yes')) this.#resetGame();
+    if (target.classList.contains('quit-game__option--yes')) this._resetGame();
     //IF TARGET IS NO BTN, HIDE QUIT MESSAGE
     if (target.classList.contains('quit-game__option--no'))
       quitGameMsgEle.classList.add('hidden');

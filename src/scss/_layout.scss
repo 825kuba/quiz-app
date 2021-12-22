@@ -12,15 +12,49 @@
   grid-template-rows: min-content 1fr min-content;
 
   .header {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    align-self: flex-start;
+    &.hidden {
+      padding-top: 1rem;
+      display: none;
+    }
+  }
+
+  .box {
+    align-self: center;
+    position: relative;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 700px;
+    background-image: linear-gradient(
+      to bottom,
+      $color-secondary-1,
+      $color-secondary-2
+    );
+    border: 3px solid $color-font-primary;
+    box-shadow: 0 0 3rem $color-font-primary;
+    padding: 2rem 4rem;
+    text-align: center;
+
+    // display: grid;
+    // align-content: center;
+  }
+
+  &.correct {
+    background-image: linear-gradient(
+      to bottom,
+      $color-correct-1,
+      $color-correct-2
+    );
+  }
+
+  &.wrong {
+    background-image: linear-gradient(to top, $color-wrong-1, $color-wrong-2);
   }
 
   .footer {
     align-self: center;
     padding: 1rem;
     font-size: 1.4rem;
+    line-height: 1rem;
     vertical-align: middle;
     color: $color-font-primary;
 
@@ -44,35 +78,6 @@
     & a:visited {
       color: $color-font-primary;
     }
-  }
-
-  .box {
-    align-self: center;
-    position: relative;
-    margin: 0 auto;
-    width: 90%;
-    max-width: 650px;
-    background-image: linear-gradient(
-      to bottom,
-      $color-secondary-1,
-      $color-secondary-2
-    );
-    border: 3px solid $color-font-primary;
-    box-shadow: 0 0 3rem $color-font-primary;
-    padding: 2rem 4rem;
-    text-align: center;
-  }
-
-  &.correct {
-    background-image: linear-gradient(
-      to bottom,
-      $color-correct-1,
-      $color-correct-2
-    );
-  }
-
-  &.wrong {
-    background-image: linear-gradient(to top, $color-wrong-1, $color-wrong-2);
   }
 }
 
@@ -115,8 +120,7 @@
 
   &__question {
     font-size: 2.2rem;
-    overflow-wrap: anywhere;
-    hyphens: auto;
+    word-break: break-word;
   }
 
   &__answers {
@@ -138,8 +142,7 @@
     padding: 1rem 2rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    overflow-wrap: break-word;
-    hyphens: auto;
+    word-break: break-word;
 
     &:disabled {
       color: $color-font-primary;

@@ -11,6 +11,11 @@ $color-font-primary: black;
 
 $font-primary: 'Open Sans', sans-serif;
 
+$screen-largest: 75em; //1200px
+$screen-large: 62.5em; //1000px
+$screen-medium: 50em; //800px
+$screen-small: 37.5em; //600px
+
 *,
 *::after,
 *::before {
@@ -21,7 +26,14 @@ $font-primary: 'Open Sans', sans-serif;
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
+  font-size: 50%;
+
+  @media only screen and (min-width: $screen-medium) {
+    font-size: 62.5%;
+  }
+  @media only screen and (min-width: $screen-largest) {
+    font-size: 68.75%;
+  }
 }
 
 body {
